@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_change.*
+import kotlinx.android.synthetic.main.activity_change.edit_text
+import kotlinx.android.synthetic.main.activity_main.*
 
 class ChangeActivity : AppCompatActivity() {
 
@@ -23,8 +25,9 @@ class ChangeActivity : AppCompatActivity() {
     }
 
     private fun returnDataAction() {
-        return_btn.setOnClickListener {
+        return_btn.setOnClickListener click@ {
             val newData = edit_text.text.toString()
+            if (newData.isEmpty()) return@click
             if (newData == data) showToast("Поменяйте данные")
             else returnData(newData)
         }
@@ -37,7 +40,4 @@ class ChangeActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-    }
 }

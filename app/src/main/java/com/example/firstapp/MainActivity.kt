@@ -14,6 +14,8 @@ class MainActivity : AppCompatActivity() {
     //Сохранять все введенные значения и добавить TextView и кнопку показать и отобразить все данные в TextView
     //вынести showToast в отдельный класс
 
+    val values = mutableListOf<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -21,9 +23,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun sendAction() {
-        send_to_change.setOnClickListener {
+        send_to_change.setOnClickListener click@ {
+            val value = edit_text.text.toString()
+            value.addSom()
+            if (value.isEmpty()) return@click
             val intent = Intent(this, ChangeActivity::class.java)
-            intent.putExtra("text", edit_text.text.toString())
+            intent.putExtra("text", value)
+            values.add(value)
             startActivityForResult(intent, 0)
         }
     }
@@ -31,13 +37,13 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
-            0 -> if (resultCode == Activity.RESULT_OK) edit_text.setText(data?.getStringExtra("result"))
+            0 -> if (resultCode == Activity.RESULT_OK) {
+                val result = data?.getStringExtra("result")
+
+                result?.let {
+                    values.add(it)
+                    edit_text.setText(it) }
+            }
         }
-
     }
-
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-    }
-
 }
