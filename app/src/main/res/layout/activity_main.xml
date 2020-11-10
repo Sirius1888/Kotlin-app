@@ -5,33 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/remove"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textSize="16sp"/>
-
-    <EditText
-        android:id="@+id/edit_text"
+    
+    <Button
+        android:id="@+id/remove"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Введите что-нибудь"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view"
-        android:layout_marginTop="16dp"/>
-
+        android:text="remove"
+        app:layout_constraintBottom_toTopOf="@+id/add"/>
     <Button
-        android:id="@+id/send_to_change"
+        android:id="@+id/add"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:text="Press me"
-        android:background="@null"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text"
-        android:layout_marginTop="32dp"/>
+        android:layout_height="wrap_content"
+        android:text="Добавить"
+        app:layout_constraintBottom_toTopOf="@+id/type_url"/>
+
+    <EditText
+        android:id="@+id/type_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Введите урл"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
