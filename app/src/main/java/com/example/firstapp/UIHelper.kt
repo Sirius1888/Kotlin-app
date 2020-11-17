@@ -11,7 +11,7 @@ fun Context.showToast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }
 
-fun ImageView.loadImage(url: String) {
+fun ImageView.loadImage(url: String?) {
     Glide
         .with(this.context)
         .load(url)

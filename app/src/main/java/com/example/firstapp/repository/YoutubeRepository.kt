@@ -1,8 +1,11 @@
 package com.example.firstapp.repository
 
 import androidx.lifecycle.MutableLiveData
-import com.example.firstapp.models.Playlist
-import com.example.firstapp.network.RetrofitClient
+import androidx.lifecycle.liveData
+import com.example.firstapp.data.models.Playlist
+import com.example.firstapp.data.network.Resource
+import com.example.firstapp.data.network.RetrofitClient
+import kotlinx.coroutines.Dispatchers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,19 +21,13 @@ class YoutubeRepository() {
 
     private var api = RetrofitClient().instanceRetrofit()
 
-    fun fetchPlaylistsFromNetwork(): MutableLiveData<Playlist?> {
-        val data = MutableLiveData<Playlist?>()
-        api.fetchPlaylists(part, key, channel, maxResult).enqueue(object : Callback<Playlist?> {
-            override fun onFailure(call: Call<Playlist?>, t: Throwable) {
-                data.value = null
-            }
-
-            override fun onResponse(call: Call<Playlist?>, response: Response<Playlist?>) {
-                data.value = response.body()
-            }
-
-        })
-        return data
+    fun fetchPlaylists() = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            emit(Resource.success(data = api.fetchPlaylists(part, key, channel, maxResult)))
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message =  e.message ?: "Error"))
+        }
     }
 
 }

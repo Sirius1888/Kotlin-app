@@ -1,4 +1,4 @@
-package com.example.firstapp.models
+package com.example.firstapp.data.models
 
 data class Playlist(
     var kind: String? = null,
@@ -19,7 +19,7 @@ data class Snippet(
     var channelId: String? = null,
     var title: String? = null,
     var description: String? = null,
-    var thumbnails: MutableList<Thumbnails>? = null
+    var thumbnails: Thumbnails? = null
 )
 
 data class Thumbnails(

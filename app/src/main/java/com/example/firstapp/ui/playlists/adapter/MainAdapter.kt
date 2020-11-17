@@ -1,21 +1,24 @@
-package com.example.firstapp.ui.adapter
+package com.example.firstapp.ui.playlists.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firstapp.R
 import com.example.firstapp.loadImage
+import com.example.firstapp.data.models.PlaylistItems
 
-class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+class MainAdapter(private var onItemClick: (PlaylistItems) -> Unit)
+    : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
-    var list = mutableListOf<String>()
+    var list = mutableListOf<PlaylistItems>()
     lateinit var holder: ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_image, parent, false)
+            .inflate(R.layout.item_playlists, parent, false)
         return ViewHolder(view)
     }
 
@@ -26,15 +29,20 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         this.holder = holder
         val item = list[position]
-        holder.image.loadImage(item)
+        holder.image.loadImage(item.snippet?.thumbnails?.medium?.url)
+        holder.title.text = item.snippet?.title
+        holder.description.text = item.snippet?.description
+        holder.itemView.setOnClickListener {
+            onItemClick(item)
+        }
     }
 
-    fun addItems(items: MutableList<String>) {
+    fun addItems(items: MutableList<PlaylistItems>) {
         list = items
         notifyDataSetChanged()
     }
 
-    fun addItem(item: String) {
+    fun addItem(item: PlaylistItems) {
         list.add(item)
         notifyItemInserted(list.lastIndex)
     }
@@ -47,6 +55,8 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var image: ImageView = itemView.findViewById(R.id.image)
+        var title: TextView = itemView.findViewById(R.id.title)
+        var description: TextView = itemView.findViewById(R.id.description)
     }
 
 }
