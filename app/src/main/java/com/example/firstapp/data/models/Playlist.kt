@@ -11,7 +11,8 @@ data class PlaylistItems(
     var etag: String? = null,
     var id: String? = null,
     var snippet: Snippet? = null,
-    var contentDetails: ContentDetails? = null
+    var contentDetails: ContentDetails? = null,
+    var nextPageToken: String? = null
 )
 
 data class Snippet(

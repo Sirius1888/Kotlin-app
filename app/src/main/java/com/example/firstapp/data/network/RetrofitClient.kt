@@ -27,7 +27,7 @@ class RetrofitClient {
             .client(okHttpClient)
             .build()
 
-    fun instanceRetrofit() : YoutubeApi {
+    fun provideYoutubeApi() : YoutubeApi {
         return retrofit.create(YoutubeApi::class.java)
     }
 

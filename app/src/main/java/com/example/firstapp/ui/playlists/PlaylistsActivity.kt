@@ -1,6 +1,7 @@
 package com.example.firstapp.ui.playlists
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -9,21 +10,23 @@ import com.example.firstapp.R
 import com.example.firstapp.data.models.PlaylistItems
 import com.example.firstapp.data.network.Status
 import com.example.firstapp.showToast
+import com.example.firstapp.test_di.*
+import com.example.firstapp.ui.detail_playlist.DetailPlaylistActivity
 import com.example.firstapp.ui.playlists.adapter.MainAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
 
-class PlaylistsActivity : AppCompatActivity() {
+class PlaylistsActivity() : AppCompatActivity() {
 
 
     //1. Создать DetailPlaylistActivity
     //2. Сделать Запрос на получение списка данных
     //3. Сделать ui по дизайну
     private lateinit var adapter: MainAdapter
-    private lateinit var viewModel: PlaylistViewModel
+    val viewModel by inject<PlaylistViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewModel = ViewModelProvider(this).get(PlaylistViewModel::class.java)
         setupAdapter()
 
         fetchPlaylists()
@@ -47,6 +50,8 @@ class PlaylistsActivity : AppCompatActivity() {
 
     private fun onItemClick(item: PlaylistItems) {
         showToast(item.etag.toString())
+        DetailPlaylistActivity.instanceActivity(this, item)
     }
+
 
 }
