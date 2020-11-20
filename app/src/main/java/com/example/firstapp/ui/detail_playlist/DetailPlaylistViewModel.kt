@@ -1,24 +1,32 @@
 package com.example.firstapp.ui.detail_playlist
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.firstapp.data.models.Playlist
+import com.example.firstapp.data.models.PlaylistItems
+import com.example.firstapp.data.network.Status
 import com.example.firstapp.repository.YoutubeRepository
 
 
 class DetailPlaylistViewModel(var repository: YoutubeRepository) : ViewModel() {
 
-    fun fetchDetailPlaylist(playlistId: String?): MutableList<Playlist>? {
-        var result = repository.fetchDetailPlaylists(playlistId)
-
-        val array: MutableList<Playlist>? = null
-        result.observeForever {
-            it?.data?.items?.let { result -> array?.addAll(result) }
-            if (!it.data?.nextPage.isNullOrEmpty()) {
-                val nextPage = it.data?.nextPage
-                result = repository.fetchDetailPlaylists(playlistId, nextPage)
+    var errorMessage = MutableLiveData<String>()
+    var detailPlaylists = MutableLiveData<MutableList<PlaylistItems>>()
+    var detail: MutableList<PlaylistItems>? = mutableListOf()
+    var playlistId: String? = null
+    fun fetchPlaylistVideo(playlistId: String?, nextPageToken: String? = null) {
+        this.playlistId = playlistId
+        repository.fetchDetailPlaylists(playlistId, nextPageToken).observeForever {
+            when (it.status) {
+                Status.SUCCESS -> getAllVideo(it?.data)
+                Status.ERROR -> errorMessage.value = it.message.toString()
             }
         }
+    }
 
-        return array
+    private fun getAllVideo(data: Playlist?) {
+        data?.items?.let { detail?.addAll(it) }
+        if (!data?.nextPageToken.isNullOrEmpty()) fetchPlaylistVideo(playlistId, data?.nextPageToken)
+        else detailPlaylists.value = detail
     }
 }
