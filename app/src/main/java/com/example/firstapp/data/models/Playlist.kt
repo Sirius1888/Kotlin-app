@@ -1,6 +1,12 @@
 package com.example.firstapp.data.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "playlist")
 data class Playlist(
+    @PrimaryKey(autoGenerate = true)
+    var id: Int? = null,
     var kind: String? = null,
     var etag: String? = null,
     var items: MutableList<PlaylistItems>? = null,

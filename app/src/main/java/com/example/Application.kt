@@ -1,8 +1,7 @@
 package com.example
 
 import android.app.Application
-import com.example.firstapp.di.mainModule
-import com.example.firstapp.di.viewModelModule
+import com.example.firstapp.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -17,7 +16,7 @@ class App: Application() {
             androidContext(this@App)
 //            inject()
 //            modules(listOf(repositoryModule, fragmentModule, viewModelModule, networkModule))
-            modules(listOf(mainModule, viewModelModule))
+            modules(listOf(networkModule, dbModule, repositoryModule, viewModelModule))
         }
     }
 
