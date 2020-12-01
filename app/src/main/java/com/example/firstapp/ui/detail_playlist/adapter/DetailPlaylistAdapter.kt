@@ -13,7 +13,7 @@ import com.example.firstapp.data.models.PlaylistItems
 class DetailPlaylistAdapter(private var onItemClick: (PlaylistItems) -> Unit)
     : RecyclerView.Adapter<DetailPlaylistAdapter.ViewHolder>() {
 
-    var list = mutableListOf<PlaylistItems>()
+    private var list = mutableListOf<PlaylistItems>()
     lateinit var holder: ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)

@@ -2,7 +2,7 @@ package com.example.firstapp.di
 
 import com.example.firstapp.data.db.DatabaseClient
 import com.example.firstapp.data.network.provideYoutubeApi
-import com.example.firstapp.repository.YoutubeRepository
+import com.example.firstapp.data.repository.YoutubeRepository
 import com.example.firstapp.ui.detail_playlist.DetailPlaylistViewModel
 import com.example.firstapp.ui.playlists.PlaylistViewModel
 import org.koin.android.ext.koin.androidContext

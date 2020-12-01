@@ -74,4 +74,16 @@ dependencies {
     implementation "androidx.room:room-ktx:2.2.5"
     kapt "androidx.room:room-compiler:2.2.5"
 
+    //exo player
+    implementation 'com.google.android.exoplayer:exoplayer:2.8.4'
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.8.4'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.8.4'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.8.4'
+
+    //fetch urls array
+    implementation 'com.github.HaarigerHarald:android-youtubeExtractor:2.1.0'
+
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+
+    //
 }

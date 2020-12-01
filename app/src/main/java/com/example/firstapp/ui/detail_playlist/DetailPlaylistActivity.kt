@@ -9,6 +9,7 @@ import com.example.firstapp.R
 import com.example.firstapp.data.models.PlaylistItems
 import com.example.firstapp.showToast
 import com.example.firstapp.ui.detail_playlist.adapter.DetailPlaylistAdapter
+import com.example.firstapp.ui.detail_video.DetailVideoActivity
 import kotlinx.android.synthetic.main.activity_detail_playlist.*
 import org.koin.android.ext.android.inject
 
@@ -34,7 +35,7 @@ class DetailPlaylistActivity : AppCompatActivity() {
     }
 
     private fun onItemClick(item: PlaylistItems) {
-        showToast(item.toString())
+        DetailVideoActivity.instanceActivity(this, item)
     }
 
     private fun subscribeDetailPlaylist() {

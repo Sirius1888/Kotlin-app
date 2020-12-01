@@ -1,4 +1,4 @@
-package com.example.firstapp.repository
+package com.example.firstapp.data.repository
 
 import androidx.lifecycle.liveData
 import com.example.firstapp.data.db.PlaylistDao
@@ -46,7 +46,7 @@ class YoutubeRepository(private var api: YoutubeApi, private var playlistDao: Pl
 
     fun fetchPlaylists() = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
-//        emit(Resource.fetchFromDB(playlistDao.getPlaylist()))
+        emit(Resource.fetchFromDB(playlistDao.getPlaylist()))
         try {
             val request = api.fetchPlaylists(part, key, channel)
             playlistDao.insertPlaylist(request)

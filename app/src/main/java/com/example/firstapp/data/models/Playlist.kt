@@ -28,7 +28,8 @@ data class Snippet(
     var title: String? = null,
     var description: String? = null,
     var thumbnails: Thumbnails? = null,
-    var playlistId: String? = null
+    var playlistId: String? = null,
+    var contentDetails: ContentDetails? = null
 )
 
 data class Thumbnails(
@@ -40,5 +41,7 @@ data class Medium(
 )
 
 data class ContentDetails(
-    var itemCount: String? = null
+    var itemCount: String? = null,
+    var videoId: String? = null,
+    var videoPublishedAt: String? = null
 )
