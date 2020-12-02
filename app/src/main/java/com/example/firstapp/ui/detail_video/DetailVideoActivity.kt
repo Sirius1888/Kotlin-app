@@ -22,64 +22,23 @@ import kotlinx.android.synthetic.main.activity_detail_video.*
 
 
 class DetailVideoActivity :
-    BaseActivity<PlaylistViewModel>(R.layout.activity_detail_video, PlaylistViewModel::class),
-    PlayerManager.PlayerCallBack {
+    BaseActivity<PlaylistViewModel>(R.layout.activity_detail_video, PlaylistViewModel::class){
 
     //1. Сделать при перевороте экрана фулл скрин и обратно
     //2. Добавить алерт диалог со списком видео
     //3. И сделать скачивание файла
 
-    val urlsArray = mutableListOf<YoutubeVideo>()
-//    private lateinit var player: Player
-//    private lateinit var playerManager: PlayerManager
-//    private lateinit var playerView: PlayerView
-//    private var videoPlayer: SimpleExoPlayer? = null
-
-    val videoPath =
-        "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"//"https://www.youtube.com/watch?v=${playlist?.contentDetails?.videoId}"
+    val videoPath = "https://www.youtube.com/watch?v=${playlist?.contentDetails?.videoId}"
 
     override fun setupViews() {
-//        playerView = findViewById(R.id.player_view)
-//        playerManager = PlayerManager.getSharedInstance(this)
-//        player = playerManager.playerView.player
         title_text_view.text = playlist?.snippet?.title
         description_text_view.text = playlist?.snippet?.description
         player_view.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
-                videoPath?.let { youTubePlayer.loadVideo(it, 0f) }
+                videoPath.let { youTubePlayer.loadVideo(it, 0f) }
             }
         })
-//        playExoPlayerVideo(videoPath)
-//        fetchUrl()
     }
-
-//    @SuppressLint("StaticFieldLeak")
-//    private fun fetchUrl() {
-//        val videoPath = "https://www.youtube.com/watch?v=${playlist?.contentDetails?.videoId}"
-//        object : YouTubeExtractor(this) {
-//            override fun onExtractionComplete(
-//                ytFiles: SparseArray<YtFile>?,
-//                videoMeta: VideoMeta?
-//            ) {
-//                var itag: Int
-//                if (ytFiles == null) return
-//                for (i in 0 until ytFiles.size()) {
-//                    itag = ytFiles.keyAt(i)
-//                    val ytFile = ytFiles.get(itag)
-//                    urlsArray.add(YoutubeVideo().addFormatToList(urlsArray, ytFile, ytFiles))
-//                }
-//                val url = urlsArray[urlsArray.lastIndex]
-//                playExoPlayerVideo(url.videoFile?.url.toString())
-//            }
-//        }.extract(videoPath, true, false)
-//    }
-//
-//    private fun playExoPlayerVideo(url: String) {
-//        if (urlsArray.isNullOrEmpty()) return
-//        player_view.player = player
-//        PlayerManager.getSharedInstance(this).playStream(url)
-//        PlayerManager.getSharedInstance(this).setPlayerListener(this)
-//    }
 
     override fun setupLiveData() {}
 
@@ -93,24 +52,4 @@ class DetailVideoActivity :
             activity?.startActivity(intent)
         }
     }
-
-    override fun onPlayingEnd() {}
-
-    override fun onItemClickOnItem(albumId: Int) {}
-
-//    override fun onPause() {
-//        super.onPause()
-//        playerManager.pausePlayer()
-//    }
-//    override fun onRestart() {
-//        super.onRestart();
-//        playerManager.resumePlayer()
-//    }
-//
-//    public override fun onDestroy() {
-//        super.onDestroy()
-//        player.release()
-//        playerManager.releasePlayer()
-//    }
-
 }

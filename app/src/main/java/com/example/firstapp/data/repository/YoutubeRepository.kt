@@ -30,7 +30,8 @@ open class BaseRepository {
 
 class YoutubeRepository(private var api: YoutubeApi, private var playlistDao: PlaylistDao): BaseRepository() {
 
-    val channel = "UC8butISFwT-Wl7EV0hUK0BQ"
+//    val channel = "UC8butISFwT-Wl7EV0hUK0BQ"
+    val channel = "UCDsHatv4GJ6e4up6mCSfZTg"
     val key = "AIzaSyAx8p70xc-SuyvmfhLZbCCJNiqQOQG0nj0"
     val part = "snippet,contentDetails"
 
